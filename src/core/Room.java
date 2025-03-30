@@ -71,12 +71,12 @@ public class Room {
     }
   }
 
-  public HashSet<Coordinate> getWalls() {
-    return wallTiles;
+  public List<Coordinate> getWalls() {
+    return new ArrayList<>(wallTiles);
   }
 
-  public HashSet<Coordinate> getFloor() {
-    return floorTiles;
+  public List<Coordinate>  getFloor() {
+    return new ArrayList<>(floorTiles);
   }
 
   //calc distance from center of one room to another
