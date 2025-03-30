@@ -84,6 +84,13 @@ public class Room {
     return centerPosition.distanceBettwen(other.centerPosition);
   }
 
+  //get wall and floor coordinates
+  public List<Coordinate> getAllCoordinates() {
+    List<Coordinate> coordinates = getFloor();
+    coordinates.addAll(getWalls());
+    return coordinates;
+  }
+
   //check if room occupies that space
   public boolean  containsCoordinate(Coordinate c) {
     return wallTiles.contains(c) || floorTiles.contains(c);
