@@ -14,7 +14,7 @@ public class Coordinate {
     }
 
     //calc distance between two coordinates
-    public int distanceBettwen(Coordinate otherCordinate) {
+    public double distanceBettwen(Coordinate otherCordinate) {
         int a;
         int b;
 
@@ -25,7 +25,7 @@ public class Coordinate {
         //get difference between two values on same axis
         a = Math.abs(this.x - otherCordinate.x);
         b = Math.abs(this.y - otherCordinate.y);
-        return (int) Math.round(Math.hypot(a, b));//Pythagorean Calculation
+        return Math.hypot(a, b);//Pythagorean Calculation
     }
 
     //Change coordinates stored.

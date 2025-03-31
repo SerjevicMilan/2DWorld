@@ -16,7 +16,7 @@ public class CordinateTests {
         Coordinate pos2 = new Coordinate(4, 4);
 
         //uses Pythagorean Calculation if not on same axis
-        assertThat(pos1.distanceBettwen(pos2)).isEqualTo(3);
+        assertThat(pos1.distanceBettwen(pos2)).isEqualTo(2.8284271247461903);
 
         //If on same axis just calc difference between opposite axis
         pos2.changeCoordinates(4, 2);

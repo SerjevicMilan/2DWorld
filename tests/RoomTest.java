@@ -105,7 +105,7 @@ public class RoomTest {
         assertThat(r1.distanceTo(r2)).isEqualTo(0);
 
         r2 = new Room(pos2, 3,4);
-        assertThat(r1.distanceTo(r2)).isEqualTo(7);
+        assertThat(r1.distanceTo(r2)).isEqualTo(7.0710678118654755);
 
     }
 

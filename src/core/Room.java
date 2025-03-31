@@ -80,7 +80,7 @@ public class Room {
   }
 
   //calc distance from center of one room to another
-  public int distanceTo(Room other) {
+  public double distanceTo(Room other) {
     return centerPosition.distanceBettwen(other.centerPosition);
   }
 
@@ -98,5 +98,19 @@ public class Room {
 
   public Coordinate getCenter() {
     return centerPosition;
+  }
+
+  @Override
+  public boolean equals (Object obj) {
+    if(this == obj) { return true; }
+    if (!(obj instanceof Room room)) { return false; }
+
+    return this.centerPosition == room.centerPosition && this.width == room.width
+            && this.height == room.height ;
+  }
+
+  @Override
+  public int hashCode() {
+    return 31 * centerPosition.x + centerPosition.y + width + height;
   }
 }
