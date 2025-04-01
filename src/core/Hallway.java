@@ -13,16 +13,21 @@ public class Hallway {
     private Coordinate from;
     private Coordinate to;
     private List<Coordinate> hallwayPath = new ArrayList<>();
+    private List<Coordinate> hallwayWall = new ArrayList<>();
+    private List<Room> rooms;
 
     //during construction add from and to coordinates
-    public Hallway(Coordinate start, Coordinate end) {
-        from = start;
-        to = end;
+    public Hallway(Coordinate from, Coordinate to, List<Room> rooms ) {
+        this.from = from;
+        this.to = to;
+        this.rooms = rooms;
     }
 
-    public Hallway(Coordinate start, Coordinate end, Random random) {
+    public Hallway(Coordinate start, Coordinate end, Random random, List<Room> rooms) {
         from = start;
         to = end;
+        this.rooms = rooms;
+
         if (uniform(random, 2) == 1) {
             generateZigZagPath();
         }
@@ -67,9 +72,39 @@ public class Hallway {
     }
 
     //returns array of coordinates representing path
-    public List<Coordinate> getHallwayPath() {
+    public List<Coordinate> getFloor() {
         return hallwayPath;
     }
+/*
+    public List<Coordinate> getWall() {
+        for(int i = 1; i < hallwayPath.size() - 1; i++) {
+            //generateWall(hallwayPath.get(i - 1), hallwayPath.get(i));
+            generateWall(hallwayPath.get(i), hallwayPath.get(i + 1));
+        }
+        return hallwayWall;
+    }
+
+    private void generateWall(Coordinate floorTile1, Coordinate floorTile2) {
+        if ( floorTile1.x == floorTile2.x) {
+            generate(new Coordinate(floorTile1.x, floorTile1.y + 1));
+            generate(new Coordinate(floorTile1.x, floorTile1.y - 1));
+        }
+        if ( floorTile1.y == floorTile2.y) {
+            generate(new Coordinate(floorTile1.x + 1, floorTile1.y));
+            generate(new Coordinate(floorTile1.x - 1, floorTile1.y));
+        }
+    }
+
+    private void generate(Coordinate potentialWall) {
+        for(Room room : rooms) {
+            if (room.floorTiles.contains(potentialWall) || hallwayPath.contains(potentialWall)) {
+                continue;
+            }
+            hallwayWall.add(potentialWall);
+        }
+    }
+
+ */
 
     //increment or decrement (depending on start and end positions)
     private int moveOne(int start, int end) {
@@ -77,5 +112,13 @@ public class Hallway {
         if (start > end) { i *= -1; }//if end pos less then start pos then decrement
         if ( start != end) { start += i; }
         return start;
+    }
+
+    public Coordinate getFrom () {
+        return from;
+    }
+
+    public Coordinate getTo () {
+        return to;
     }
 }

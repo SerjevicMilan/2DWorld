@@ -6,10 +6,59 @@ import tileengine.Tileset;
 import utils.RandomUtils;
 
 import javax.swing.text.Utilities;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 /*
 2d board filled with floor tiles surrounded by walls (hallways and rooms)
  */
 public class World {
+    List<Room> rooms = new ArrayList<>();
+    List<Hallway> hallways = new ArrayList<>();
+    int height;
+    int width;
+    Random randomGenerator;
 
+    public World (int height, int width, Random randomGenerator) {
+        this.height = height;
+        this.width = width;
+        this.randomGenerator = randomGenerator;
+        generateWorld();
+    }
+
+    private void generateWorld() {
+        RoomGenerator RG = new RoomGenerator(randomGenerator, height, width);
+        HallwaysGenerator HG;
+        rooms = RG.generateRooms(0.25);
+        HG = new HallwaysGenerator(rooms, randomGenerator);
+        hallways = HG.generateHallways();
+    }
+
+    public List<Coordinate> getAllWalls() {
+        List<Coordinate> wallsCordinates = new ArrayList<>();
+
+        for (Room room : rooms) {
+            wallsCordinates.addAll(room.getWalls());
+        }
+/*
+        for (Hallway hallway : hallways) {
+            wallsCordinates.addAll(hallway.getWall());
+        }
+
+ */
+        return wallsCordinates;
+    }
+
+    public List<Coordinate> getAllFloors() {
+        List<Coordinate> floorCordinates = new ArrayList<>();
+
+        for (Room room : rooms) {
+            floorCordinates.addAll(room.getFloor());
+        }
+
+        for (Hallway hallway : hallways) {
+            floorCordinates.addAll(hallway.getFloor());
+        }
+        return floorCordinates;
+    }
 }
