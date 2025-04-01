@@ -43,8 +43,8 @@ public class RoomGenerator {
     //generate random position and room size and create new Room
     private Room generateRoom() {
         Coordinate pos = new Coordinate(uniform(random, width), uniform(random, height));
-        int roomWidth = uniform(random, 2, 8);
-        int roomHeight = uniform(random, 2, 8);
+        int roomWidth = uniform(random, 3, 11);
+        int roomHeight = uniform(random, 2, 10);
         Room room;
 
         if (!canPlace(pos, roomWidth, roomHeight)) {
@@ -64,7 +64,10 @@ public class RoomGenerator {
     private boolean occupied(Room room) {
         for(Coordinate pos : room.getAllCoordinates()) {
             for(Room r : rooms) {
-                if (r.containsCoordinate(pos)) {
+                if (r.containsCoordinate(pos) || r.containsCoordinate(new Coordinate(pos.x + 1, pos.y))
+                        || r.containsCoordinate(new Coordinate(pos.x, pos.y + 1))
+                        || r.containsCoordinate(new Coordinate(Math.abs(pos.x - 1), pos.y))
+                        || r.containsCoordinate(new Coordinate(pos.x, pos.y + 1))){
                     return true;
                 }
             }

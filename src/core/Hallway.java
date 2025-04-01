@@ -61,11 +61,11 @@ public class Hallway {
 
     //generate L shape path by traversing one y-axis first and then x-axis
     public List<Coordinate> generateLShapePath() {
-        for (int y = from.y; y <= to.y; y++) {//traverse x-axis
+        for (int y = from.y; y != to.y; y = moveOne(y, to.y)) {//traverse x-axis
             hallwayPath.add(new Coordinate(from.x, y));
         }
 
-        for (int x = from.x + 1; x <= to.x; x++) {//traverse y-axis
+        for (int x = from.x; x != to.x; x = moveOne(x, to.x)) {//traverse y-axis
             hallwayPath.add(new Coordinate(x, to.y));
         }
         return hallwayPath;

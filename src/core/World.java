@@ -29,7 +29,7 @@ public class World {
     private void generateWorld() {
         RoomGenerator RG = new RoomGenerator(randomGenerator, height, width);
         HallwaysGenerator HG;
-        rooms = RG.generateRooms(0.25);
+        rooms = RG.generateRooms(0.30);
         HG = new HallwaysGenerator(rooms, randomGenerator);
         hallways = HG.generateHallways();
     }
