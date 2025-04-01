@@ -40,12 +40,11 @@ public class World {
         for (Room room : rooms) {
             wallsCordinates.addAll(room.getWalls());
         }
-/*
+
         for (Hallway hallway : hallways) {
             wallsCordinates.addAll(hallway.getWall());
         }
 
- */
         return wallsCordinates;
     }
 

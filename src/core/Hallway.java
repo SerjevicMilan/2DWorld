@@ -75,7 +75,7 @@ public class Hallway {
     public List<Coordinate> getFloor() {
         return hallwayPath;
     }
-/*
+
     public List<Coordinate> getWall() {
         for(int i = 1; i < hallwayPath.size() - 1; i++) {
             //generateWall(hallwayPath.get(i - 1), hallwayPath.get(i));
@@ -85,14 +85,10 @@ public class Hallway {
     }
 
     private void generateWall(Coordinate floorTile1, Coordinate floorTile2) {
-        if ( floorTile1.x == floorTile2.x) {
             generate(new Coordinate(floorTile1.x, floorTile1.y + 1));
             generate(new Coordinate(floorTile1.x, floorTile1.y - 1));
-        }
-        if ( floorTile1.y == floorTile2.y) {
             generate(new Coordinate(floorTile1.x + 1, floorTile1.y));
             generate(new Coordinate(floorTile1.x - 1, floorTile1.y));
-        }
     }
 
     private void generate(Coordinate potentialWall) {
@@ -104,7 +100,6 @@ public class Hallway {
         }
     }
 
- */
 
     //increment or decrement (depending on start and end positions)
     private int moveOne(int start, int end) {
