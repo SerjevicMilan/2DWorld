@@ -18,13 +18,13 @@ public class RendererWorld {
     public int height = 0;
     public int width = 0;
 
-    public void initialiseWorld(int height, int width, int seed, double worldDensity) {
+    public void initialiseWorld(int height, int width, int seed, double worldDensity, int minRoomSize, int maxRoomSize) {
         this.height = height;
         this.width = width;
         this.randomGenerator = new Random(seed);
         rendererWorld.initialize(width, height);
         worldTiles = new TETile[width][height];
-        world = new World(height, width, randomGenerator, worldDensity);
+        world = new World(height, width, randomGenerator, worldDensity, minRoomSize, maxRoomSize);
         wallCordinates = world.getAllWalls();
         floorCordinates = world.getAllFloors();
         fillWorldTiles();

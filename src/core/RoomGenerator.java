@@ -13,15 +13,19 @@ import static utils.RandomUtils.uniform;
 public class RoomGenerator {
     private int width;
     private int height;
+    private int maxRoomsSize;
+    private int minRoomsSize;
     List<Room> rooms = new ArrayList<>();
     Random random;
     private static final int AVERAGE_ROOM_AREA = 60;
 
     //take pseudo random number generator and 2d world dimensions
-    public RoomGenerator(Random random, int height, int width) {
+    public RoomGenerator(Random random, int height, int width, int minRoomsSize, int maxRoomsSize) {
         this.width = width;
         this.height = height;
         this.random = random;
+        this.maxRoomsSize = maxRoomsSize;
+        this.minRoomsSize = minRoomsSize;
     }
 
     //generate random rooms(number of rooms depends on density)
@@ -36,15 +40,24 @@ public class RoomGenerator {
 
     //calc number of rooms to generate
     private int calcNumberOfRooms(double density) {
-        if (density <= 0) { throw new IllegalArgumentException("density needs to be bigger then 0"); }
-        return (int) Math.round(width * height * density / AVERAGE_ROOM_AREA);
+        if (density <= 0 || density > 1)  { throw new IllegalArgumentException("density needs to be bigger then 0"); }
+
+        int roomMaxHeightWidth = maxRoomsSize * 2 + 1;
+        int roomMinHeightWidth = minRoomsSize * 2 + 1;
+        double averageRoomHeight =(double) (roomMaxHeightWidth +  roomMinHeightWidth) / 2;
+        double averageRoomWidth = (double) (roomMaxHeightWidth + roomMinHeightWidth) / 2;
+
+
+        double averageRoomArea = averageRoomHeight * averageRoomWidth;
+
+        return (int) Math.round(width * height * density / averageRoomArea);
     }
 
     //generate random position and room size and create new Room
     private Room generateRoom() {
         Coordinate pos = new Coordinate(uniform(random, width), uniform(random, height));
-        int roomWidth = uniform(random, 3, 11);
-        int roomHeight = uniform(random, 2, 10);
+        int roomWidth = uniform(random, minRoomsSize, maxRoomsSize);
+        int roomHeight = uniform(random, minRoomsSize, maxRoomsSize);
         Room room;
 
         if (!canPlace(pos, roomWidth, roomHeight)) {
