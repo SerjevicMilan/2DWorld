@@ -15,16 +15,20 @@ import java.util.Random;
 public class World {
     List<Room> rooms = new ArrayList<>();
     List<Hallway> hallways = new ArrayList<>();
-    int height;
-    int width;
-    private int maxRoomSize;
-    private int minRoomSize;
+    int worldHeight;
+    int worldWidth;
+    private final int maxRoomSize;//both width and height
+    private final int minRoomSize;//both width and height
     double worldDensity;
     Random randomGenerator;
 
-    public World (int height, int width, Random randomGenerator, double worldDensity, int minRoomSize, int maxRoomSize) {
-        this.height = height;
-        this.width = width;
+    /*
+    Create 2d world of size worldHeight * worldWidth and fill it with number of rooms depending on density.
+    Create Rooms of random sizes and position and connect them with hallways.
+     */
+    public World (int worldHeight, int worldWidth, Random randomGenerator, double worldDensity, int minRoomSize, int maxRoomSize) {
+        this.worldHeight = worldHeight;
+        this.worldWidth = worldWidth;
         this.randomGenerator = randomGenerator;
         this.worldDensity = worldDensity;
         this.maxRoomSize = maxRoomSize;
@@ -32,38 +36,48 @@ public class World {
         generateWorld();
     }
 
+    //generate Rooms and Hallways
     private void generateWorld() {
-        RoomGenerator RG = new RoomGenerator(randomGenerator, height, width, minRoomSize, maxRoomSize);
+        //Initialise room generator
+        RoomGenerator RG = new RoomGenerator(randomGenerator, worldHeight, worldWidth, minRoomSize, maxRoomSize);
         HallwaysGenerator HG;
+
+        //Generate rooms
         rooms = RG.generateRooms(worldDensity);
+
+        //Initialise Hallway Generator
         HG = new HallwaysGenerator(rooms, randomGenerator);
+
+        //Generate hallways
         hallways = HG.generateHallways();
     }
 
+    //Get all walls Coordinates by going through all rooms and hallways
     public List<Coordinate> getAllWalls() {
-        List<Coordinate> wallsCordinates = new ArrayList<>();
+        List<Coordinate> wallsCoordinates = new ArrayList<>();
 
         for (Room room : rooms) {
-            wallsCordinates.addAll(room.getWalls());
+            wallsCoordinates.addAll(room.getWalls());
         }
 
         for (Hallway hallway : hallways) {
-            wallsCordinates.addAll(hallway.getWall());
+            wallsCoordinates.addAll(hallway.getWall());
         }
 
-        return wallsCordinates;
+        return wallsCoordinates;
     }
 
+    //Get all floors Coordinates by going through all rooms and hallways
     public List<Coordinate> getAllFloors() {
-        List<Coordinate> floorCordinates = new ArrayList<>();
+        List<Coordinate> floorCoordinates = new ArrayList<>();
 
         for (Room room : rooms) {
-            floorCordinates.addAll(room.getFloor());
+            floorCoordinates.addAll(room.getFloor());
         }
 
         for (Hallway hallway : hallways) {
-            floorCordinates.addAll(hallway.getFloor());
+            floorCoordinates.addAll(hallway.getFloor());
         }
-        return floorCordinates;
+        return floorCoordinates;
     }
 }
