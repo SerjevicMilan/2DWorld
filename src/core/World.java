@@ -13,23 +13,23 @@ import java.util.Random;
 2d board filled with floor tiles surrounded by walls (hallways and rooms)
  */
 public class World {
-    List<Room> rooms = new ArrayList<>();
-    List<Hallway> hallways = new ArrayList<>();
-    int worldHeight;
-    int worldWidth;
+    private List<Room> rooms = new ArrayList<>();
+    private List<Hallway> hallways = new ArrayList<>();
+    private int worldHeight;
+    private int worldWidth;
     private final int maxRoomSize;//both width and height
     private final int minRoomSize;//both width and height
     double worldDensity;
-    Random randomGenerator;
+    private Random randomGenerator;
 
     /*
     Create 2d world of size worldHeight * worldWidth and fill it with number of rooms depending on density.
     Create Rooms of random sizes and position and connect them with hallways.
      */
-    public World (int worldHeight, int worldWidth, Random randomGenerator, double worldDensity, int minRoomSize, int maxRoomSize) {
+    public World (int worldHeight, int worldWidth, int seed, double worldDensity, int minRoomSize, int maxRoomSize) {
         this.worldHeight = worldHeight;
         this.worldWidth = worldWidth;
-        this.randomGenerator = randomGenerator;
+        this.randomGenerator = new Random(seed);
         this.worldDensity = worldDensity;
         this.maxRoomSize = maxRoomSize;
         this.minRoomSize = minRoomSize;
@@ -79,5 +79,13 @@ public class World {
             floorCoordinates.addAll(hallway.getFloor());
         }
         return floorCoordinates;
+    }
+
+    public int getWidth() {
+        return worldWidth;
+    }
+
+    public int getHeight() {
+        return worldHeight;
     }
 }

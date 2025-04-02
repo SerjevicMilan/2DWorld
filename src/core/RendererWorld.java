@@ -27,20 +27,19 @@ public class RendererWorld {
     public int height = 0;
     public int width = 0;
 
-    //Generate world and retrieves and initialise Coordinates lists
-    public void initialiseWorld(int height, int width, int seed, double worldDensity, int minRoomSize, int maxRoomSize) {
-        this.height = height;
-        this.width = width;
-
-        this.randomGenerator = new Random(seed);//initialise random generator
-
-        rendererWorld.initialize(width, height);//initialise render engine
-        worldTiles = new TETile[width][height];//initialise 2d array of tiles
-
-        world = new World(height, width, randomGenerator, worldDensity, minRoomSize, maxRoomSize);//create world
+    public RendererWorld (World world) {
+        this.world = world;
+        this.height = world.getHeight();
+        this.width = world.getWidth();
 
         wallCordinates = world.getAllWalls();//retrieves all Wall coordinates
         floorCordinates = world.getAllFloors();//retrieves all Floor coordinates
+    }
+
+    //Generate world and retrieves and initialise Coordinates lists
+    public void initialiseWorld() {
+        rendererWorld.initialize(width, height);//initialise render engine
+        worldTiles = new TETile[width][height];//initialise 2d array of tiles
 
         fillWorldTiles();//add wall and floor tiles to worldTiles
     }
