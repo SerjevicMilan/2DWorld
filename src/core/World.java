@@ -17,19 +17,21 @@ public class World {
     List<Hallway> hallways = new ArrayList<>();
     int height;
     int width;
+    double worldDensity;
     Random randomGenerator;
 
-    public World (int height, int width, Random randomGenerator) {
+    public World (int height, int width, Random randomGenerator, double worldDensity) {
         this.height = height;
         this.width = width;
         this.randomGenerator = randomGenerator;
+        this.worldDensity = worldDensity;
         generateWorld();
     }
 
     private void generateWorld() {
         RoomGenerator RG = new RoomGenerator(randomGenerator, height, width);
         HallwaysGenerator HG;
-        rooms = RG.generateRooms(0.30);
+        rooms = RG.generateRooms(worldDensity);
         HG = new HallwaysGenerator(rooms, randomGenerator);
         hallways = HG.generateHallways();
     }

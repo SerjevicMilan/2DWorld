@@ -10,11 +10,12 @@ import static utils.RandomUtils.uniform;
 
 //Create hallway path based on start and end position and state of worldTiles
 public class Hallway {
-    private Coordinate from;
-    private Coordinate to;
-    private List<Coordinate> hallwayPath = new ArrayList<>();
-    private List<Coordinate> hallwayWall = new ArrayList<>();
-    private List<Room> rooms;
+    private final Coordinate from;
+    private final Coordinate to;
+    private final List<Coordinate> hallwayPath = new ArrayList<>();
+    private final List<Coordinate> hallwayWall = new ArrayList<>();
+    private final List<Room> rooms;
+    private List<Hallway> hallways = new ArrayList<>();
 
     //during construction add from and to coordinates
     public Hallway(Coordinate from, Coordinate to, List<Room> rooms ) {
@@ -23,10 +24,12 @@ public class Hallway {
         this.rooms = rooms;
     }
 
-    public Hallway(Coordinate start, Coordinate end, Random random, List<Room> rooms) {
+    //assign two rooms center coordinates and use random number generator to pick how to generate hallway
+    public Hallway(Coordinate start, Coordinate end, Random random, List<Room> rooms, List<Hallway> hallways) {
         from = start;
         to = end;
         this.rooms = rooms;
+        this.hallways = hallways;
 
         if (uniform(random, 2) == 1) {
             generateZigZagPath();
@@ -76,30 +79,41 @@ public class Hallway {
         return hallwayPath;
     }
 
+    //check around hallway pathway(floor tiles) if you can place wall tiles
     public List<Coordinate> getWall() {
-        for(int i = 1; i < hallwayPath.size() - 1; i++) {
-            //generateWall(hallwayPath.get(i - 1), hallwayPath.get(i));
-            generateWall(hallwayPath.get(i), hallwayPath.get(i + 1));
+        for (int i = 0; i < hallwayPath.size(); i++) {
+            generateWall(hallwayPath.get(i));
         }
         return hallwayWall;
     }
 
-    private void generateWall(Coordinate floorTile1, Coordinate floorTile2) {
-            generate(new Coordinate(floorTile1.x, floorTile1.y + 1));
-            generate(new Coordinate(floorTile1.x, floorTile1.y - 1));
-            generate(new Coordinate(floorTile1.x + 1, floorTile1.y));
-            generate(new Coordinate(floorTile1.x - 1, floorTile1.y));
+    //check one up, down, left, right tile and generate if it's not floor tile
+    private void generateWall(Coordinate floorTile1) {
+        generateIfNotFloor(new Coordinate(floorTile1.x, floorTile1.y + 1));//up
+        generateIfNotFloor(new Coordinate(floorTile1.x, floorTile1.y - 1));//down
+        generateIfNotFloor(new Coordinate(floorTile1.x + 1, floorTile1.y));//right
+        generateIfNotFloor(new Coordinate(floorTile1.x - 1, floorTile1.y));//left
     }
 
-    private void generate(Coordinate potentialWall) {
+    //it checks current cord all rooms and hallway for floor tiles coordinates and generate wall if it's not floor
+    private void generateIfNotFloor(Coordinate potentialWall) {
         for(Room room : rooms) {
-            if (room.floorTiles.contains(potentialWall) || hallwayPath.contains(potentialWall)) {
+            //if it's a floor tile skip otherwise
+            if (room.floorTiles.contains(potentialWall) || hallwayPath.contains(potentialWall)
+                    || hallwaysContains(potentialWall)) {
                 continue;
             }
             hallwayWall.add(potentialWall);
         }
     }
 
+    //check previews hallways placed
+    private boolean hallwaysContains(Coordinate potentialWall) {
+        for (Hallway hallway : hallways) {
+            if (hallway.hallwayPath.contains(potentialWall)) { return true; }
+        }
+        return false;
+    }
 
     //increment or decrement (depending on start and end positions)
     private int moveOne(int start, int end) {

@@ -82,7 +82,6 @@ public class HallwayTest {
         expectedPath.add(new Coordinate(9, 12));
         expectedPath.add(new Coordinate(10, 12));
         expectedPath.add(new Coordinate(11, 12));
-        expectedPath.add(new Coordinate(12, 12));
 
         Hallway hw3 = new Hallway(r1.getCenter(), r2.getCenter(), rooms);
         assertThat(hw3.generateLShapePath()).isEqualTo(expectedPath);

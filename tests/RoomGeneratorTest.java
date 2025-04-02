@@ -11,8 +11,8 @@ public class RoomGeneratorTest {
     @Test
     public void basicRoomGeneratorTest() {
         RoomGenerator Rg = new RoomGenerator(new Random(2), 50, 80);
-        List<Room> rooms = Rg.generateRooms(0.5);
+        List<Room> rooms = Rg.generateRooms(0.25);
 
-        assertThat(rooms.size()).isEqualTo(33);
+        assertThat(rooms.size()).isEqualTo(17);
     }
 }

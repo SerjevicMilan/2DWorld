@@ -36,7 +36,7 @@ public class HallwaysGenerator {
     //for each edge create a hallway and add it to the hallways list
     private void generate(List<Edge<Room>> edges) {
         for (Edge<Room> edge: edges) {
-            hallways.add(new Hallway(edge.base.getCenter(), edge.neighbor.getCenter(), random, rooms));
+            hallways.add(new Hallway(edge.base.getCenter(), edge.neighbor.getCenter(), random, rooms, hallways));
         }
     }
 

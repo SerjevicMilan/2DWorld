@@ -64,13 +64,23 @@ public class RoomGenerator {
     private boolean occupied(Room room) {
         for(Coordinate pos : room.getAllCoordinates()) {
             for(Room r : rooms) {
-                if (r.containsCoordinate(pos) || r.containsCoordinate(new Coordinate(pos.x + 1, pos.y))
-                        || r.containsCoordinate(new Coordinate(pos.x, pos.y + 1))
-                        || r.containsCoordinate(new Coordinate(Math.abs(pos.x - 1), pos.y))
-                        || r.containsCoordinate(new Coordinate(pos.x, pos.y + 1))){
+                if (isOcupied(r, pos)){
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    //if room has pos coordinate position is already occupied
+    //check around pos(+- 1, +-1) to make sure rooms don't touch
+    private boolean isOcupied(Room r, Coordinate pos) {
+        if (r.containsCoordinate(pos)
+                || r.containsCoordinate(new Coordinate(pos.x + 1, pos.y))
+                || r.containsCoordinate(new Coordinate(pos.x, pos.y + 1))
+                || r.containsCoordinate(new Coordinate(Math.abs(pos.x - 1), pos.y))
+                || r.containsCoordinate(new Coordinate(pos.x, Math.abs(pos.y - 1)))){
+            return true;
         }
         return false;
     }
