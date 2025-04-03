@@ -2,8 +2,8 @@ package core;
 
 //stores x and y coordinates and can calculate distance between two coordinates.
 public class Coordinate {
-    int x;
-    int y;
+    public int x;
+    public int y;
 
     //assign x and y
     public Coordinate(int x, int y) {

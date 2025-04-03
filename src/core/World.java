@@ -17,8 +17,8 @@ public class World {
     private List<Hallway> hallways = new ArrayList<>();
     private int worldHeight;
     private int worldWidth;
-    private final int maxRoomSize;//both width and height
-    private final int minRoomSize;//both width and height
+    private final int maxRoomSize = 10;//both width and height
+    private final int minRoomSize = 2;//both width and height
     double worldDensity;
     private Random randomGenerator;
 
@@ -26,13 +26,11 @@ public class World {
     Create 2d world of size worldHeight * worldWidth and fill it with number of rooms depending on density.
     Create Rooms of random sizes and position and connect them with hallways.
      */
-    public World (int worldHeight, int worldWidth, int seed, double worldDensity, int minRoomSize, int maxRoomSize) {
+    public World (int worldHeight, int worldWidth, int seed, double worldDensity) {
         this.worldHeight = worldHeight;
         this.worldWidth = worldWidth;
         this.randomGenerator = new Random(seed);
         this.worldDensity = worldDensity;
-        this.maxRoomSize = maxRoomSize;
-        this.minRoomSize = minRoomSize;
         generateWorld();
     }
 
