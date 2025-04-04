@@ -30,6 +30,14 @@ public class Menu {
         return width * height;
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight () {
+        return height;
+    }
+
     //creates coordinate for 2d array of width and height dimensions
     private void generateBlackScreen() {
         for (int x = 0; x < width; x++) {
