@@ -1,5 +1,11 @@
 package game;
 
+import core.World;
+import menu.Menu;
+import render.GRender;
+import render.RenderMenu;
+import render.RendererWorld;
+
 //running game, listens for input  and render games based on it
 public class Game {
     //default game size
@@ -13,6 +19,9 @@ public class Game {
     //controls game flow
     private GameState state;
 
+    GRender renderMenu;
+    GRender renderWorld;
+
     InputHandler inputHandler = new InputHandler();
 
     //set game state to main menu
@@ -22,10 +31,17 @@ public class Game {
 
     //render game based on current state
     public void runGame() {
+        init();
         while(state != GameState.GAME_OVER) {
             updateState();
             renderGame();
         }
+    }
+
+    //init world and menu
+    private void init() {
+        renderMenu = new RenderMenu(new Menu(80, 50));
+        renderWorld = new RendererWorld(new World(50, 80, 1, 1.0));
     }
 
     //update state based on key inputs
@@ -46,14 +62,17 @@ public class Game {
 
     //render based on state
     private void renderGame() {
+        if (state == GameState.MAIN_MENU) {
+            renderMenu.render();
+        }
         if (state == GameState.SEED_INPUT) {
-            //renderSeed
+            //
         }
         if (state == GameState.LOAD_GAME) {
             //render prev save
         }
         if (state == GameState.WORLD_RENDER) {
-            //render world
+            renderWorld.render();
         }
     }
 }

@@ -6,22 +6,30 @@ import tileengine.TERenderer;
 import tileengine.TETile;
 import tileengine.Tileset;
 
-public class RenderMenu implements GRender<Menu> {
+public class RenderMenu implements GRender {
     //2d array for render engine
     TETile[][] menuTiles;
     TERenderer renderMT;
 
     Menu menu;
 
-    //renders background and draws menu
-    public void render(Menu menu ) {
+    public RenderMenu(Menu menu) {
+        //initilise for rendering
         this.menu = menu;
+        initilise();
+    }
+
+    //renders background and draws menu
+    public void render() {
+        renderMT.renderFrame(menuTiles);
+        menu.drawMenu();
+    }
+
+    private void initilise() {
         renderMT = new TERenderer();
         renderMT.initialize(menu.getWidth(), menu.getHeight());
         menuTiles = new TETile[menu.getWidth()][menu.getHeight()];
         fillMenuTiles();
-        renderMT.renderFrame(menuTiles);
-        menu.drawMenu();
     }
 
     //fill menu background

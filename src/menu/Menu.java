@@ -49,9 +49,11 @@ public class Menu {
 
     public void drawMenu() {
         StdDraw.setPenColor(255, 255, 255);
-        StdDraw.text((int)(width / 2) - 10, (int)(height  / 2) - 5, "(N) New Game");
-        StdDraw.text((int)(width / 2) - 10, (int)(height  / 2), "(L) Load Game");
-        StdDraw.text((int)(width / 2) - 10, (int)(height  / 2) + 5 , "(Q) Quit Game");
+        StdDraw.text((int)(width / 2), (int)(height  / 2) + 5, "(N) New Game");
+        StdDraw.text((int)(width / 2), (int)(height  / 2), "(L) Load Game");
+        StdDraw.text((int)(width / 2), (int)(height  / 2) - 5 , "(Q) Quit Game");
+        StdDraw.show();
+        StdDraw.pause(1000);
     }
 
 }

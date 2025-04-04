@@ -1,5 +1,7 @@
-package core;
+package render;
 
+import core.Coordinate;
+import core.World;
 import tileengine.TERenderer;
 import tileengine.TETile;
 import tileengine.Tileset;
@@ -9,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 //Creates random world and renders it's content
-public class RendererWorld {
+public class RendererWorld implements GRender {
     //2d array used to represent world state
     TETile[][] worldTiles;
     TERenderer rendererWorld = new TERenderer();
@@ -29,15 +31,21 @@ public class RendererWorld {
 
     public RendererWorld (World world) {
         this.world = world;
+        initialiseWorld();
+    }
+
+    public void render () {
+        renderFrame();
+    }
+
+    //Generate world and retrieves and initialise Coordinates lists
+    public void initialiseWorld() {
         this.height = world.getHeight();
         this.width = world.getWidth();
 
         wallCordinates = world.getAllWalls();//retrieves all Wall coordinates
         floorCordinates = world.getAllFloors();//retrieves all Floor coordinates
-    }
 
-    //Generate world and retrieves and initialise Coordinates lists
-    public void initialiseWorld() {
         rendererWorld.initialize(width, height);//initialise render engine
         worldTiles = new TETile[width][height];//initialise 2d array of tiles
 
