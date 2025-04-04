@@ -66,7 +66,7 @@ public class Game {
             renderMenu.render();
         }
         if (state == GameState.SEED_INPUT) {
-            //
+            //inputHandler.getKeyPressed();
         }
         if (state == GameState.LOAD_GAME) {
             //render prev save
