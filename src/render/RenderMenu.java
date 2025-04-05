@@ -23,13 +23,9 @@ public class RenderMenu implements GRender {
 
     //renders background and draws menu
     public void render() {
-        renderMT.renderFrame(menuTiles);
-
-        StdDraw.setXscale(0, menu.getWidth());    // or seed.getWidth()
-        StdDraw.setYscale(0, menu.getHeight());
-
-        menu.drawMenu();
-        StdDraw.show();
+        renderMT.renderFrame(menuTiles);//render tiles
+        menu.drawMenu();//draw text
+        StdDraw.show();//show text
     }
 
     //initilse 2d array of tiles for rendering and fill it tiles

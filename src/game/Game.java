@@ -23,12 +23,15 @@ public class Game {
     //controls game flow
     private GameState state ;
 
+    //render variables
     GRender renderMenu;
     GRender renderWorld;
     GRender renderSeed;
     Seed seedMenu;
+    World world;
     TERenderer render = new TERenderer();
 
+    //used to check witch key was pressed
     InputHandler inputHandler = new InputHandler();
 
     //set game state to main menu
@@ -39,7 +42,6 @@ public class Game {
 
     //render game based on current state
     public void runGame() {
-        StdDraw.enableDoubleBuffering();
         init();
         while(state != GameState.GAME_OVER) {
             updateState();
@@ -73,6 +75,7 @@ public class Game {
             state = GameState.GAME_OVER;
         }
         updateSeed();
+        updateWorldState();
     }
 
     //render based on state
@@ -82,15 +85,21 @@ public class Game {
         }
         if (state == GameState.SEED_INPUT) {
             renderSeed.render();
-            seed = seedMenu.getSeedInt();
+            prepareWorldForRendering();
         }
         if (state == GameState.LOAD_GAME) {
             //render prev save
         }
         if (state == GameState.WORLD_RENDER) {
-            renderWorld = new RendererWorld(new World(height, width, seed, density), render);
             renderWorld.render();
         }
+    }
+
+    //generate world based on current seed
+    private void prepareWorldForRendering() {
+        seed = seedMenu.getSeedInt();
+        world = new World(height, width, seed, density);
+        renderWorld = new RendererWorld(world, render);
     }
 
     //check if number form 0 to 9 is pressed and update current seed number
@@ -99,6 +108,22 @@ public class Game {
             if (inputHandler.isKeyPressed((char)('0' + i))) {
                 seedMenu.changeNumber((char)('0' + i));
             }
+        }
+    }
+
+    //if W,S,A or D pressed passe it to world to update state
+    private void updateWorldState() {
+        if (inputHandler.isKeyPressed('W')) {
+            world.updateState('W');
+        }
+        if (inputHandler.isKeyPressed('S')) {
+            world.updateState('S');
+        }
+        if (inputHandler.isKeyPressed('A')) {
+            world.updateState('A');
+        }
+        if (inputHandler.isKeyPressed('D')) {
+            world.updateState('D');
         }
     }
 }

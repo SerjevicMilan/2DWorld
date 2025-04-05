@@ -29,6 +29,10 @@ public class RendererWorld implements GRender {
     public int height = 0;
     public int width = 0;
 
+    //coordinates of player in world
+    Coordinate playerPosition;
+
+    //initialise world
     public RendererWorld (World world, TERenderer rendererWorld) {
         this.rendererWorld = rendererWorld;
         this.world = world;
@@ -36,6 +40,7 @@ public class RendererWorld implements GRender {
     }
 
     public void render () {
+        updatePlayer();
         renderFrame();
     }
 
@@ -58,6 +63,7 @@ public class RendererWorld implements GRender {
        fillNothing();
        fillWall();
        fillFloor();
+       fillPlayer();
     }
 
     //Fills whole worldTiles array with Nothing tiles(it would throw null exception otherwise
@@ -83,8 +89,23 @@ public class RendererWorld implements GRender {
         }
     }
 
+    //Fill one tile with player cordinates
+    private void fillPlayer() {
+        playerPosition = world.getPlayerPosition();
+        int playerPositonX = playerPosition.x;
+        int playerPositonY = playerPosition.y;
+
+        worldTiles[playerPositonX][playerPositonY] = Tileset.AVATAR;
+    }
+
     //renders world
     public void renderFrame() {
         rendererWorld.renderFrame(worldTiles);
+    }
+
+    //fill old player position with floor tile and call fillPlayer
+    private void updatePlayer() {
+        worldTiles[playerPosition.x][playerPosition.y] = Tileset.FLOOR;
+        fillPlayer();
     }
 }

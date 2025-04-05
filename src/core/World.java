@@ -1,5 +1,6 @@
 package core;
 
+import player.Player;
 import tileengine.TERenderer;
 import tileengine.TETile;
 import tileengine.Tileset;
@@ -22,6 +23,8 @@ public class World {
     double worldDensity;
     private Random randomGenerator;
 
+    private Player player;
+    Coordinate playerPosition;
     /*
     Create 2d world of size worldHeight * worldWidth and fill it with number of rooms depending on density.
     Create Rooms of random sizes and position and connect them with hallways.
@@ -48,6 +51,10 @@ public class World {
 
         //Generate hallways
         hallways = HG.generateHallways();
+
+        //Generate player
+        player = new Player(worldWidth, worldHeight, randomGenerator, getAllFloors());
+        playerPosition = player.spawnPlayer();
     }
 
     //Get all walls Coordinates by going through all rooms and hallways
@@ -86,4 +93,35 @@ public class World {
     public int getHeight() {
         return worldHeight;
     }
+
+    public Coordinate getPlayerPosition() {
+        return playerPosition;
+    }
+
+    //update world state
+    public void updateState(char direction) {
+        updatePlayerPosition( direction);
+    }
+
+    //if W,S,A or D update player position by moving in one of four directions
+    private void updatePlayerPosition(char direction) {
+        direction = Character.toUpperCase(direction);
+        int x = 0;
+        int y = 0;
+
+        if (direction == 'W') {
+            y += 1;
+        }
+        if (direction == 'S') {
+            y -= 1;
+        }
+        if (direction == 'A') {
+            x -= 1;
+        }
+        if (direction == 'D') {
+            x += 1;
+        }
+        playerPosition = player.updatePositin(x , y);
+    }
+
 }

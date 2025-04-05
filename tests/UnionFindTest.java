@@ -1,6 +1,5 @@
-package core;
-
 import com.google.common.truth.Truth;
+import core.UnionFind;
 import org.junit.Before;
 import org.junit.Test;
 

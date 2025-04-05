@@ -27,13 +27,9 @@ public class RenderSeed implements GRender {
 
     //renders background and draws menu
     public void render() {
-        renderSD.renderFrame(seedTiles);
-
-        StdDraw.setXscale(0, seed.getWidth());
-        StdDraw.setYscale(0, seed.getHeight());
-
-        seed.drawSeed();
-        StdDraw.show();
+        renderSD.renderFrame(seedTiles);//render tiles
+        seed.drawSeed();//draw text
+        StdDraw.show();//show text
     }
 
     //initilse 2d array of tiles for rendering and fill it tiles
