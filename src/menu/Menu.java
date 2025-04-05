@@ -21,6 +21,7 @@ public class Menu {
         generateBlackScreen();
     }
 
+    //returns coordinates for rendering Black tiles
     public List<Coordinate> getBlackScreenCoordinates() {
         return BlackScreen;
     }
@@ -47,16 +48,14 @@ public class Menu {
         }
     }
 
+    //use StdDraw to add text to screen
     public void drawMenu() {
         //set white color
         StdDraw.setPenColor(255, 255, 255);
         //center text and draw text
-        StdDraw.text((int)(width / 2), (int)(height  / 2) + 5, "(N) New Game");
-        StdDraw.text((int)(width / 2), (int)(height  / 2), "(L) Load Game");
-        StdDraw.text((int)(width / 2), (int)(height  / 2) - 5 , "(Q) Quit Game");
-        StdDraw.show();
-        //wait for 1 frame per second
-        StdDraw.pause(1000);
+        StdDraw.text((int)(width / 2), (int)(height / 2) + 5, "(N) New Game");
+        StdDraw.text((int)(width / 2), (int)(height / 2), "(L) Load Game");
+        StdDraw.text((int)(width / 2), (int)(height / 2) - 5 , "(Q) Quit Game");
     }
 
 }

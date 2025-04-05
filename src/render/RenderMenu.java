@@ -1,6 +1,7 @@
 package render;
 
 import core.Coordinate;
+import edu.princeton.cs.algs4.StdDraw;
 import menu.Menu;
 import tileengine.TERenderer;
 import tileengine.TETile;
@@ -13,8 +14,9 @@ public class RenderMenu implements GRender {
 
     Menu menu;
 
-    public RenderMenu(Menu menu) {
+    public RenderMenu(Menu menu, TERenderer renderMT) {
         //initilise for rendering
+        this.renderMT = renderMT;
         this.menu = menu;
         initilise();
     }
@@ -22,12 +24,16 @@ public class RenderMenu implements GRender {
     //renders background and draws menu
     public void render() {
         renderMT.renderFrame(menuTiles);
+
+        StdDraw.setXscale(0, menu.getWidth());    // or seed.getWidth()
+        StdDraw.setYscale(0, menu.getHeight());
+
         menu.drawMenu();
+        StdDraw.show();
     }
 
+    //initilse 2d array of tiles for rendering and fill it tiles
     private void initilise() {
-        renderMT = new TERenderer();
-        renderMT.initialize(menu.getWidth(), menu.getHeight());
         menuTiles = new TETile[menu.getWidth()][menu.getHeight()];
         fillMenuTiles();
     }

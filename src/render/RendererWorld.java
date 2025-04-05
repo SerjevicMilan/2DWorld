@@ -29,7 +29,8 @@ public class RendererWorld implements GRender {
     public int height = 0;
     public int width = 0;
 
-    public RendererWorld (World world) {
+    public RendererWorld (World world, TERenderer rendererWorld) {
+        this.rendererWorld = rendererWorld;
         this.world = world;
         initialiseWorld();
     }
@@ -46,7 +47,6 @@ public class RendererWorld implements GRender {
         wallCordinates = world.getAllWalls();//retrieves all Wall coordinates
         floorCordinates = world.getAllFloors();//retrieves all Floor coordinates
 
-        rendererWorld.initialize(width, height);//initialise render engine
         worldTiles = new TETile[width][height];//initialise 2d array of tiles
 
         fillWorldTiles();//add wall and floor tiles to worldTiles

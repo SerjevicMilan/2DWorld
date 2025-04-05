@@ -20,8 +20,4 @@ public class InputHandler {
         }
         return false;
     }
-
-    public char getKeyPressed () {
-        return keyPressed;
-    }
 }
