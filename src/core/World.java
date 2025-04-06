@@ -113,16 +113,16 @@ public class World {
         int x = 0;
         int y = 0;
 
-        if (direction == 'W') {
+        if (direction == 'W') {//up
             y += 1;
         }
-        if (direction == 'S') {
+        if (direction == 'S') {//down
             y -= 1;
         }
-        if (direction == 'A') {
+        if (direction == 'A') {//left
             x -= 1;
         }
-        if (direction == 'D') {
+        if (direction == 'D') {//right
             x += 1;
         }
         playerPosition = player.updatePositin(playerPosition.x + x , playerPosition.y + y);

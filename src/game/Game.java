@@ -14,6 +14,12 @@ import tileengine.TERenderer;
 
 //running game, listens for input  and render games based on it
 public class Game {
+    //keys responsible for movement
+    private static final char KEY_NEW_GAME = 'N';
+    private static final char KEY_LOAD_GAME = 'L';
+    private static final char KEY_QUIT = 'Q';
+    private static final char KEY_START_GAME = 'S';
+
     //default game size
     private int width = 80;
     private int height = 50;
@@ -29,22 +35,26 @@ public class Game {
     GRender renderMenu;
     GRender renderWorld;
     GRender renderSeed;
+
+    //Seed menu and world
     Seed seedMenu;
     World world;
+
+    //render engine
     TERenderer render = new TERenderer();
 
     //used to check witch key was pressed
     InputHandler inputHandler = new InputHandler();
 
-    //set game state to main menu
+    //set game state to main menu and initialise render and menu
     public Game() {
         state = GameState.MAIN_MENU;
         render.initialize(width, height);
+        initMenu();
     }
 
     //render game based on current state
     public void runGame() {
-        init();
         while(state != GameState.GAME_OVER) {
             updateState();
             renderGame();
@@ -53,39 +63,22 @@ public class Game {
         System.exit(0);
     }
 
-    //init world and menu
-    private void init() {
-        seedMenu = new Seed(width, height);
-        renderMenu = new RenderMenu(new Menu(width, height), render);
-        renderSeed = new RenderSeed(seedMenu, render);
-
-    }
-
     //update state based on key inputs
     private void updateState() {
-        if (state == GameState.MAIN_MENU && inputHandler.isKeyPressed('N')) {
-            state = GameState.SEED_INPUT;
-
-        }
-        if (state == GameState.MAIN_MENU && inputHandler.isKeyPressed('L')) {
-            world = new Load().loadGame();
-            renderWorld = new RendererWorld(world, render);
-            state = GameState.WORLD_RENDER;
+        if (state == GameState.MAIN_MENU ) {
+            handleMainMenuInput();
         }
 
         if (state == GameState.SEED_INPUT) {
-            updateSeed();
-            prepareWorldForRendering();
-            if (inputHandler.isKeyPressed('S')) {
-                state = GameState.WORLD_RENDER;
-            }
+            handleSeedInput();
         }
-        if (inputHandler.isKeyPressed('Q')) {
-            state = GameState.GAME_OVER;
-            new Save().saveGame(world);
-        }
+
         if (state == GameState.WORLD_RENDER) {
             updateWorldState();
+        }
+
+        if (isQuitPressed()) {
+            handleQuit();
         }
     }
 
@@ -100,6 +93,14 @@ public class Game {
         if (state == GameState.WORLD_RENDER) {
             renderWorld.render();
         }
+    }
+
+    //init seed and menu
+    private void initMenu() {
+        seedMenu = new Seed(width, height);
+        renderMenu = new RenderMenu(new Menu(width, height), render);
+        renderSeed = new RenderSeed(seedMenu, render);
+
     }
 
     //generate world based on current seed
@@ -124,6 +125,44 @@ public class Game {
             if (inputHandler.isKeyPressed(c)) {
                 world.updateState(c);
             }
+        }
+    }
+
+    //change state depending on key pressed in menu
+    private void handleMainMenuInput() {
+        if (inputHandler.isKeyPressed(KEY_NEW_GAME)) {
+            state = GameState.SEED_INPUT;
+        } else if (inputHandler.isKeyPressed(KEY_LOAD_GAME)) {//load world state, initialise new render and change game state
+            world = new Load().loadGame();
+            renderWorld = new RendererWorld(world, render);
+            state = GameState.WORLD_RENDER;
+        }
+    }
+
+    //handle input, update world and render. If 'S' is pressed change game state to WORLD_RENDER
+    private void handleSeedInput() {
+        updateSeed();
+        prepareWorldForRendering();
+        if (isStartGamePressed()) {
+            state = GameState.WORLD_RENDER;
+        }
+    }
+
+    //if key pressed is s return true
+    private boolean isStartGamePressed() {
+        return inputHandler.isKeyPressed(KEY_START_GAME);
+    }
+
+    //if key pressed is q return true
+    private boolean isQuitPressed() {
+        return inputHandler.isKeyPressed(KEY_QUIT);
+    }
+
+    //Change game state to GAME_OVER and save if game was running
+    private void handleQuit() {
+        state = GameState.GAME_OVER;
+        if (world != null) {//check if world was initialised
+            new Save().saveGame(world);
         }
     }
 }
