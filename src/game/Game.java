@@ -2,6 +2,8 @@ package game;
 
 import core.World;
 import edu.princeton.cs.algs4.StdDraw;
+import loading.Load;
+import loading.Save;
 import menu.Menu;
 import render.GRender;
 import render.RenderMenu;
@@ -66,16 +68,25 @@ public class Game {
 
         }
         if (state == GameState.MAIN_MENU && inputHandler.isKeyPressed('L')) {
-            state = GameState.LOAD_GAME;
-        }
-        if (state == GameState.SEED_INPUT && inputHandler.isKeyPressed('S')) {
+            world = new Load().loadGame();
+            renderWorld = new RendererWorld(world, render);
             state = GameState.WORLD_RENDER;
+        }
+
+        if (state == GameState.SEED_INPUT) {
+            updateSeed();
+            prepareWorldForRendering();
+            if (inputHandler.isKeyPressed('S')) {
+                state = GameState.WORLD_RENDER;
+            }
         }
         if (inputHandler.isKeyPressed('Q')) {
             state = GameState.GAME_OVER;
+            new Save().saveGame(world);
         }
-        updateSeed();
-        updateWorldState();
+        if (state == GameState.WORLD_RENDER) {
+            updateWorldState();
+        }
     }
 
     //render based on state
@@ -85,10 +96,6 @@ public class Game {
         }
         if (state == GameState.SEED_INPUT) {
             renderSeed.render();
-            prepareWorldForRendering();
-        }
-        if (state == GameState.LOAD_GAME) {
-            //render prev save
         }
         if (state == GameState.WORLD_RENDER) {
             renderWorld.render();
@@ -113,17 +120,10 @@ public class Game {
 
     //if W,S,A or D pressed passe it to world to update state
     private void updateWorldState() {
-        if (inputHandler.isKeyPressed('W')) {
-            world.updateState('W');
-        }
-        if (inputHandler.isKeyPressed('S')) {
-            world.updateState('S');
-        }
-        if (inputHandler.isKeyPressed('A')) {
-            world.updateState('A');
-        }
-        if (inputHandler.isKeyPressed('D')) {
-            world.updateState('D');
+        for (char c : new char[] {'W', 'A', 'S', 'D'}) {
+            if (inputHandler.isKeyPressed(c)) {
+                world.updateState(c);
+            }
         }
     }
 }

@@ -25,6 +25,9 @@ public class World {
 
     private Player player;
     Coordinate playerPosition;
+
+    int seed;
+
     /*
     Create 2d world of size worldHeight * worldWidth and fill it with number of rooms depending on density.
     Create Rooms of random sizes and position and connect them with hallways.
@@ -35,6 +38,7 @@ public class World {
         this.randomGenerator = new Random(seed);
         this.worldDensity = worldDensity;
         generateWorld();
+        this.seed = seed;
     }
 
     //generate Rooms and Hallways
@@ -121,7 +125,20 @@ public class World {
         if (direction == 'D') {
             x += 1;
         }
-        playerPosition = player.updatePositin(x , y);
+        playerPosition = player.updatePositin(playerPosition.x + x , playerPosition.y + y);
+    }
+
+    //return seed used for world generation
+    public int getSeed() {
+        return seed;
+    }
+
+    public double getDensity() {
+        return worldDensity;
+    }
+
+    public void setPlayerPosition(int x, int y) {
+       playerPosition = player.updatePositin(x, y);
     }
 
 }
