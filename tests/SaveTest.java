@@ -1,4 +1,5 @@
 import core.World;
+import game.WorldState;
 import loading.Save;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,8 @@ public class SaveTest {
     @Test
     public void saveBasicTest() {
         //create world and save seed and player coordinates to file
-        World world = new World(50, 80, 1, 1.0);
+        WorldState world = new WorldState();
+        world.generateWorld(50, 80, 1, 1.0);
         Save SL = new Save();
         SL.saveGame(world);
 
@@ -22,8 +24,8 @@ public class SaveTest {
                 + String.valueOf(world.getHeight()) + ","
                 + String.valueOf(world.getSeed()) + ","
                 + Double.toString(world.getDensity()) + ","
-                + String.valueOf(world.getPlayerPosition().x) + ","
-                + String.valueOf(world.getPlayerPosition().y);
+                + String.valueOf(world.getPlayer().x) + ","
+                + String.valueOf(world.getPlayer().y);
         try {
             actual = Files.readString(Path.of("gameSave.txt"));//read from file
         } catch (IOException e) {

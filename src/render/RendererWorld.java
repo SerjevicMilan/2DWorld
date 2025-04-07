@@ -2,6 +2,7 @@ package render;
 
 import core.Coordinate;
 import core.World;
+import game.WorldState;
 import tileengine.TERenderer;
 import tileengine.TETile;
 import tileengine.Tileset;
@@ -18,8 +19,7 @@ public class RendererWorld implements GRender {
     //render engine used to display world state;
 
     //world-class and Random number generator
-    World world;
-    Random randomGenerator;
+    WorldState world;
 
     //All coordinates representing wall and floor tiles
     List<Coordinate> wallCordinates = new ArrayList<>();
@@ -36,30 +36,30 @@ public class RendererWorld implements GRender {
     List<Coordinate> coins;
 
     //initialise world
-    public RendererWorld (World world, TERenderer rendererWorld) {
+    public RendererWorld (WorldState world, TERenderer rendererWorld) {
         this.rendererWorld = rendererWorld;
         this.world = world;
-        initialiseWorld();
     }
 
     public void render () {
-        updatePlayer();//fillDynamicTiles
+        updateState();//fillDynamicTiles
         renderFrame();
     }
 
     //Generate world and retrieves and initialise Coordinates lists
-    public void initialiseWorld() {
+    public void updateState() {
         this.height = world.getHeight();
         this.width = world.getWidth();
 
-        wallCordinates = world.getAllWalls();//retrieves all Wall coordinates
-        floorCordinates = world.getAllFloors();//retrieves all Floor coordinates
+        floorCordinates = world.getFloor();//retrieves all Wall coordinates
+        wallCordinates = world.getWalls();//retrieves all Floor coordinates
 
         coins = world.getCoins();
 
         worldTiles = new TETile[width][height];//initialise 2d array of tiles
 
         fillWorldTiles();//add wall and floor tiles to worldTiles
+        world.updateState();
     }
 
     //Fills worldTiles with Nothing, Wall and Floor tiles.
@@ -100,7 +100,7 @@ public class RendererWorld implements GRender {
 
     //Fill one tile with player cordinates
     private void fillPlayer() {
-        playerPosition = world.getPlayerPosition();
+        playerPosition = world.getPlayer();
         int playerPositonX = playerPosition.x;
         int playerPositonY = playerPosition.y;
 
@@ -118,9 +118,4 @@ public class RendererWorld implements GRender {
         rendererWorld.renderFrame(worldTiles);
     }
 
-    //fill old player position with floor tile and call fillPlayer
-    private void updatePlayer() {
-        worldTiles[playerPosition.x][playerPosition.y] = Tileset.FLOOR;
-        fillPlayer();
-    }
 }

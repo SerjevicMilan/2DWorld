@@ -38,7 +38,7 @@ public class Game {
 
     //Seed menu and world
     Seed seedMenu;
-    World world;
+    WorldState world;
 
     //render engine
     TERenderer render = new TERenderer();
@@ -106,7 +106,8 @@ public class Game {
     //generate world based on current seed
     private void prepareWorldForRendering() {
         seed = seedMenu.getSeedInt();
-        world = new World(height, width, seed, density);
+        world = new WorldState();
+        world.generateWorld(height, width, seed, density);
         renderWorld = new RendererWorld(world, render);
     }
 
@@ -123,7 +124,7 @@ public class Game {
     private void updateWorldState() {
         for (char c : new char[] {'W', 'A', 'S', 'D'}) {
             if (inputHandler.isKeyPressed(c)) {
-                world.updateState(c);
+                world.updatePlayerPosition(c);
             }
         }
     }

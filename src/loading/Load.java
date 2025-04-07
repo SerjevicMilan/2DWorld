@@ -1,6 +1,7 @@
 package loading;
 
 import core.World;
+import game.WorldState;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,12 +18,13 @@ public class Load {
     private int playerPositionX;
     private int playerPositionY;
 
-    public World loadGame() {
+    public WorldState loadGame() {
         loadGameState();//read from file and assign variables
 
         //create world and update player position
-        World world = new World(worldHeight, worldWidth, seed, density);
-        world.setPlayerPosition(playerPositionX, playerPositionY);
+        WorldState world = new WorldState();
+        world.generateWorld(worldHeight, worldWidth, seed, density);
+        world.updatePositin(playerPositionX, playerPositionY);
 
         return world;
     }

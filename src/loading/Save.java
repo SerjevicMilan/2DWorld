@@ -1,6 +1,7 @@
 package loading;
 
 import core.World;
+import game.WorldState;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -18,19 +19,19 @@ public class Save {
     private String playerPositionY;
 
     //convert data and assign it to variables and write it to file
-    public void saveGame(World world) {
+    public void saveGame(WorldState world) {
         storeData(world);
         writeGameState();
     }
 
     //convert all data necessary to string and assign to variable
-    private void storeData(World world) {
+    private void storeData(WorldState world) {
         worldWidth = String.valueOf(world.getWidth());
         worldHeight = String.valueOf(world.getHeight());
         this.seed = String.valueOf(world.getSeed());
         this.density = Double.toString(world.getDensity());
-        playerPositionX = String.valueOf( world.getPlayerPosition().x);
-        playerPositionY = String.valueOf( world.getPlayerPosition().y);
+        playerPositionX = String.valueOf( world.getPlayer().x);
+        playerPositionY = String.valueOf( world.getPlayer().y);
     }
 
     //write data separated by comma. Example (80,50,34,1.0,10,12)

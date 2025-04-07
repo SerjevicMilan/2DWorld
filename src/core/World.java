@@ -64,7 +64,7 @@ public class World {
         playerPosition = player.spawnPlayer();
 
         //Generate coins
-        coins = new CoinGenerator().generateCoins(10, randomGenerator, getAllFloors());
+        coins = generateCoins();
     }
 
     //Get all walls Coordinates by going through all rooms and hallways
@@ -108,32 +108,6 @@ public class World {
         return playerPosition;
     }
 
-    //update world state
-    public void updateState(char direction) {
-        updatePlayerPosition( direction);
-    }
-
-    //if W,S,A or D update player position by moving in one of four directions
-    private void updatePlayerPosition(char direction) {
-        direction = Character.toUpperCase(direction);
-        int x = 0;
-        int y = 0;
-
-        if (direction == 'W') {//up
-            y += 1;
-        }
-        if (direction == 'S') {//down
-            y -= 1;
-        }
-        if (direction == 'A') {//left
-            x -= 1;
-        }
-        if (direction == 'D') {//right
-            x += 1;
-        }
-        playerPosition = player.updatePositin(playerPosition.x + x , playerPosition.y + y);
-    }
-
     //return seed used for world generation
     public int getSeed() {
         return seed;
@@ -143,8 +117,8 @@ public class World {
         return worldDensity;
     }
 
-    public void setPlayerPosition(int x, int y) {
-       playerPosition = player.updatePositin(x, y);
+    private List<Coordinate> generateCoins() {
+        return new CoinGenerator().generateCoins(10, randomGenerator, getAllFloors());
     }
 
     public List<Coordinate> getCoins() {

@@ -56,14 +56,4 @@ public class Player {
         }
     }
 
-    //update player current coordinates
-    public Coordinate updatePositin(int x, int y) {
-        Coordinate potentialPosition  = new Coordinate(x, y);
-
-        if (floorTiles.contains(potentialPosition)) {//if new position is valid update
-            position = potentialPosition;
-        }
-
-        return position;
-    }
 }
