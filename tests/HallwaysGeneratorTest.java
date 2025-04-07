@@ -1,4 +1,4 @@
-import core.Coordinate;
+import utils.Coordinate;
 import core.Hallway;
 import core.HallwaysGenerator;
 import core.Room;

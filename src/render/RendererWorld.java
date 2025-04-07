@@ -1,7 +1,6 @@
 package render;
 
-import core.Coordinate;
-import core.World;
+import utils.Coordinate;
 import game.WorldState;
 import tileengine.TERenderer;
 import tileengine.TETile;
@@ -9,7 +8,6 @@ import tileengine.Tileset;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 //Creates random world and renders it's content
 public class RendererWorld implements GRender {
@@ -65,12 +63,9 @@ public class RendererWorld implements GRender {
     //Fills worldTiles with Nothing, Wall and Floor tiles.
     //Prepares worldTiles for rendering
     public void fillWorldTiles() {
-        //fillStaticTiles
         fillNothing();
         fillWall();
         fillFloor();
-
-        //fillDynamicTiles
         fillCoins();
         fillPlayer();
     }

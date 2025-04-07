@@ -1,6 +1,6 @@
 package core;
 
-import tileengine.TETile;
+import utils.Coordinate;
 
 import java.util.ArrayList;
 import java.util.List;

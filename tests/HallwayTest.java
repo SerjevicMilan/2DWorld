@@ -1,14 +1,10 @@
-import core.Coordinate;
+import utils.Coordinate;
 import core.Hallway;
 import core.Room;
 import org.junit.jupiter.api.Test;
-import tileengine.TETile;
-import tileengine.Tileset;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 import static com.google.common.truth.Truth.assertThat;
 

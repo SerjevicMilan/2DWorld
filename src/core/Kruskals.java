@@ -1,5 +1,7 @@
     package core;
 
+    import utils.UnionFind;
+
     import java.util.ArrayList;
     import java.util.List;
 

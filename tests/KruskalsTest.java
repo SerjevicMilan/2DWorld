@@ -1,5 +1,6 @@
     import core.*;
     import org.junit.jupiter.api.Test;
+    import utils.Coordinate;
 
     import java.util.ArrayList;
     import java.util.List;

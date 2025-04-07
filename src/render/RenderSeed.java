@@ -1,9 +1,8 @@
 package render;
 
-import core.Coordinate;
+import utils.Coordinate;
 import edu.princeton.cs.algs4.StdDraw;
 import game.InputHandler;
-import menu.Menu;
 import seed.Seed;
 import tileengine.TERenderer;
 import tileengine.TETile;

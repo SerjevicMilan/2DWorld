@@ -1,4 +1,4 @@
-import core.Coordinate;
+import utils.Coordinate;
 import core.Graph;
 import core.Room;
 import org.junit.jupiter.api.Test;

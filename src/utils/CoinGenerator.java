@@ -1,7 +1,5 @@
 package utils;
 
-import core.Coordinate;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

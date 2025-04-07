@@ -1,6 +1,6 @@
 package menu;
 
-import core.Coordinate;
+import utils.Coordinate;
 import edu.princeton.cs.algs4.StdDraw;
 
 import java.util.ArrayList;

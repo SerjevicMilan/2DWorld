@@ -1,6 +1,6 @@
 package player;
 
-import core.Coordinate;
+import utils.Coordinate;
 
 import java.util.List;
 import java.util.Random;

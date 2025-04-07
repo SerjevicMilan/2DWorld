@@ -1,6 +1,4 @@
-import com.google.common.truth.Truth;
-import core.UnionFind;
-import org.junit.Before;
+import utils.UnionFind;
 import org.junit.Test;
 
 import static com.google.common.truth.Truth.assertThat;

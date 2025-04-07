@@ -1,4 +1,4 @@
-import core.Coordinate;
+import utils.Coordinate;
 import org.junit.jupiter.api.Test;
 import player.Player;
 

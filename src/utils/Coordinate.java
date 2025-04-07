@@ -1,4 +1,4 @@
-package core;
+package utils;
 
 //stores x and y coordinates and can calculate distance between two coordinates.
 public class Coordinate {

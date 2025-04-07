@@ -1,13 +1,9 @@
 package core;
 
 import player.Player;
-import tileengine.TERenderer;
-import tileengine.TETile;
-import tileengine.Tileset;
 import utils.CoinGenerator;
-import utils.RandomUtils;
+import utils.Coordinate;
 
-import javax.swing.text.Utilities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
