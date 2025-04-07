@@ -4,6 +4,7 @@ import player.Player;
 import tileengine.TERenderer;
 import tileengine.TETile;
 import tileengine.Tileset;
+import utils.CoinGenerator;
 import utils.RandomUtils;
 
 import javax.swing.text.Utilities;
@@ -25,6 +26,8 @@ public class World {
 
     private Player player;
     Coordinate playerPosition;
+
+    List<Coordinate> coins;
 
     int seed;
 
@@ -59,6 +62,9 @@ public class World {
         //Generate player
         player = new Player(worldWidth, worldHeight, randomGenerator, getAllFloors());
         playerPosition = player.spawnPlayer();
+
+        //Generate coins
+        coins = new CoinGenerator().generateCoins(10, randomGenerator, getAllFloors());
     }
 
     //Get all walls Coordinates by going through all rooms and hallways
@@ -141,4 +147,7 @@ public class World {
        playerPosition = player.updatePositin(x, y);
     }
 
+    public List<Coordinate> getCoins() {
+        return coins;
+    }
 }

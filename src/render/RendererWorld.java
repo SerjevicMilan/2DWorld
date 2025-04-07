@@ -32,6 +32,9 @@ public class RendererWorld implements GRender {
     //coordinates of player in world
     Coordinate playerPosition;
 
+    //coordinates of all coins
+    List<Coordinate> coins;
+
     //initialise world
     public RendererWorld (World world, TERenderer rendererWorld) {
         this.rendererWorld = rendererWorld;
@@ -40,7 +43,7 @@ public class RendererWorld implements GRender {
     }
 
     public void render () {
-        updatePlayer();
+        updatePlayer();//fillDynamicTiles
         renderFrame();
     }
 
@@ -52,6 +55,8 @@ public class RendererWorld implements GRender {
         wallCordinates = world.getAllWalls();//retrieves all Wall coordinates
         floorCordinates = world.getAllFloors();//retrieves all Floor coordinates
 
+        coins = world.getCoins();
+
         worldTiles = new TETile[width][height];//initialise 2d array of tiles
 
         fillWorldTiles();//add wall and floor tiles to worldTiles
@@ -60,10 +65,14 @@ public class RendererWorld implements GRender {
     //Fills worldTiles with Nothing, Wall and Floor tiles.
     //Prepares worldTiles for rendering
     public void fillWorldTiles() {
-       fillNothing();
-       fillWall();
-       fillFloor();
-       fillPlayer();
+        //fillStaticTiles
+        fillNothing();
+        fillWall();
+        fillFloor();
+
+        //fillDynamicTiles
+        fillCoins();
+        fillPlayer();
     }
 
     //Fills whole worldTiles array with Nothing tiles(it would throw null exception otherwise
@@ -96,6 +105,12 @@ public class RendererWorld implements GRender {
         int playerPositonY = playerPosition.y;
 
         worldTiles[playerPositonX][playerPositonY] = Tileset.AVATAR;
+    }
+
+    private void fillCoins() {
+        for(Coordinate coin: coins) {
+            worldTiles[coin.x][coin.y] = Tileset.FLOWER;
+        }
     }
 
     //renders world
