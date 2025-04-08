@@ -1,5 +1,6 @@
-package core;
+package hallway;
 
+import room.Room;
 import utils.Coordinate;
 
 import java.util.ArrayList;
@@ -99,7 +100,7 @@ public class Hallway {
     private void generateIfNotFloor(Coordinate potentialWall) {
         for(Room room : rooms) {
             //if it's a floor tile skip otherwise
-            if (room.floorTiles.contains(potentialWall) || hallwayPath.contains(potentialWall)
+            if (room.getFloor().contains(potentialWall) || hallwayPath.contains(potentialWall)
                     || hallwaysContains(potentialWall)) {
                 continue;
             }

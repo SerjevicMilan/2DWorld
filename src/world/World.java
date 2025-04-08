@@ -1,6 +1,10 @@
-package core;
+package world;
 
+import hallway.Hallway;
+import hallway.HallwaysGenerator;
 import player.Player;
+import room.Room;
+import room.RoomGenerator;
 import utils.CoinGenerator;
 import utils.Coordinate;
 
@@ -56,7 +60,7 @@ public class World {
         hallways = HG.generateHallways();
 
         //Generate player
-        player = new Player(worldWidth, worldHeight, randomGenerator, getAllFloors());
+        player = new Player(randomGenerator, getAllFloors());
         playerPosition = player.spawnPlayer();
 
         //Generate coins

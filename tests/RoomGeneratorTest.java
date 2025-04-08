@@ -1,5 +1,5 @@
-import core.Room;
-import core.RoomGenerator;
+import room.Room;
+import room.RoomGenerator;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package game;
 
 import utils.Coordinate;
-import core.World;
+import world.World;
 
 import java.util.ArrayList;
 import java.util.List;

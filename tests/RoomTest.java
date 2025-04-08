@@ -1,5 +1,5 @@
 import utils.Coordinate;
-import core.Room;
+import room.Room;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;

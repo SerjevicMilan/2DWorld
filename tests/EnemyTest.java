@@ -1,6 +1,7 @@
-import utils.Coordinate;
+import enemy.Enemy;
 import org.junit.jupiter.api.Test;
 import player.Player;
+import utils.Coordinate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +9,9 @@ import java.util.Random;
 
 import static com.google.common.truth.Truth.assertThat;
 
-public class PlayerTest {
+public class EnemyTest {
     @Test
-    public void playerBasicTest() {
+    public void enemyBasicTest() {
         List<Coordinate> validCordinates = new ArrayList<>();
 
         for (int x = 0; x < 80; x++) {
@@ -19,8 +20,8 @@ public class PlayerTest {
             }
         }
 
-        Player player = new Player( new Random(1), validCordinates);
+        Enemy enemy = new Enemy( new Random(1), validCordinates);
 
-        assertThat(validCordinates.contains(player.spawnPlayer())).isTrue();
+        assertThat(validCordinates.contains(enemy.spawn())).isTrue();
     }
 }

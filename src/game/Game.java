@@ -1,6 +1,5 @@
 package game;
 
-import core.World;
 import edu.princeton.cs.algs4.StdDraw;
 import loading.Load;
 import loading.Save;

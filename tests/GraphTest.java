@@ -1,6 +1,6 @@
 import utils.Coordinate;
-import core.Graph;
-import core.Room;
+import utils.Graph;
+import room.Room;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

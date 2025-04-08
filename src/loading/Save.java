@@ -1,6 +1,5 @@
 package loading;
 
-import core.World;
 import game.WorldState;
 
 import java.io.BufferedWriter;

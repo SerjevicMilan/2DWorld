@@ -1,7 +1,7 @@
 import utils.Coordinate;
-import core.Hallway;
-import core.HallwaysGenerator;
-import core.Room;
+import hallway.Hallway;
+import hallway.HallwaysGenerator;
+import room.Room;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

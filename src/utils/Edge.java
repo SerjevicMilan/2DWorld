@@ -1,4 +1,4 @@
-package core;
+package utils;
 
 public class Edge<T> implements Comparable<Edge<T>> {
     T base;
@@ -30,6 +30,14 @@ public class Edge<T> implements Comparable<Edge<T>> {
     @Override
     public int compareTo(Edge<T> other) {
         return (int) Math.round(weight - other.weight);
+    }
+
+    public T getBase() {
+        return base;
+    }
+
+    public T getNeighbor() {
+        return neighbor;
     }
 
 }

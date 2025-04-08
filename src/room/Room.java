@@ -1,4 +1,4 @@
-package core;
+package room;
 
 import utils.Coordinate;
 

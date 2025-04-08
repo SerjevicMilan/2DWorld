@@ -1,4 +1,9 @@
-package core;
+package hallway;
+
+import room.Room;
+import utils.Edge;
+import utils.Graph;
+import utils.Kruskals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +41,7 @@ public class HallwaysGenerator {
     //for each edge create a hallway and add it to the hallways list
     private void generate(List<Edge<Room>> edges) {
         for (Edge<Room> edge: edges) {
-            hallways.add(new Hallway(edge.base.getCenter(), edge.neighbor.getCenter(), random, rooms, hallways));
+            hallways.add(new Hallway(edge.getBase().getCenter(), edge.getNeighbor().getCenter(), random, rooms, hallways));
         }
     }
 
