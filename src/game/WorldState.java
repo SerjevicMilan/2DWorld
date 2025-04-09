@@ -1,5 +1,6 @@
 package game;
 
+import enemy.EnemyPathGenerator;
 import utils.Coordinate;
 import world.World;
 
@@ -32,6 +33,12 @@ public class WorldState {
     // Current player position
     Coordinate playerPosition;
 
+    //current enemy position
+    Coordinate enemyPosition;
+    EnemyPathGenerator enemyPathGenerator = new EnemyPathGenerator();
+    private int enemyMoveCounter = 0;
+    private static final int ENEMY_MOVE_INTERVAL = 10;
+
     // List of coin positions
     List<Coordinate> coins;
 
@@ -46,6 +53,7 @@ public class WorldState {
         this.seed = seed;
         world = new World(worldHeight, worldWidth, seed, worldDensity);
         getAllCordinates();
+        enemyPathGenerator.generateGraph(floorCordinates);
     }
 
     /**
@@ -56,6 +64,7 @@ public class WorldState {
         if (coins.isEmpty()) {
             generateWorld(height, width, seed + 1, density);
         }
+        updateEnemyPosition();
     }
 
     /**
@@ -66,6 +75,7 @@ public class WorldState {
         wallCordinates = world.getAllWalls();
         coins = world.getCoins();
         playerPosition = world.getPlayerPosition();
+        enemyPosition = world.getEnemyPosition();
     }
 
     // ====== Getters for external access ======
@@ -85,6 +95,8 @@ public class WorldState {
     public Coordinate getPlayer() {
         return playerPosition;
     }
+
+    public Coordinate getEnemy() { return enemyPosition; }
 
     public int getHeight() {
         return height;
@@ -141,4 +153,20 @@ public class WorldState {
     private void checkPlayerCoinCollision() {
         coins.remove(playerPosition);
     }
+
+    private void updateEnemyPosition() {
+        enemyMoveCounter++;
+        if (enemyMoveCounter % ENEMY_MOVE_INTERVAL != 0) return;
+
+        List<Coordinate> enemyPath = enemyPathGenerator.generatePath(enemyPosition, playerPosition);
+        if (!enemyPath.isEmpty() && enemyPath.size() > 1) {
+            enemyPosition = enemyPath.get(1); // move 1 step
+        }
+    }
+
+    private boolean checkPlayerEnemyCollision() {
+        return playerPosition == enemyPosition;
+    }
+
+    public boolean gameOver() { return  checkPlayerEnemyCollision(); }
 }

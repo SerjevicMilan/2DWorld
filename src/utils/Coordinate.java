@@ -7,7 +7,6 @@ public class Coordinate {
 
     //assign x and y
     public Coordinate(int x, int y) {
-        checkIfCoordinatesAreValid(x, y);
 
         this.x = x;
         this.y = y;
@@ -30,7 +29,6 @@ public class Coordinate {
 
     //Change coordinates stored.
     public Coordinate changeCoordinates(int x, int y) {
-        checkIfCoordinatesAreValid(x, y);
 
         this.x = x;
         this.y = y;
@@ -38,12 +36,6 @@ public class Coordinate {
         return this;
     }
 
-    //If coordinates negative throw error.
-    public void checkIfCoordinatesAreValid(int x, int y) {
-        if (x < 0 || y <0) {
-            throw new IllegalArgumentException("Cordinates can't be negative");
-        }
-    }
 
     @Override
     public boolean equals(Object obj){

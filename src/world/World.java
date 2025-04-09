@@ -1,5 +1,6 @@
 package world;
 
+import enemy.Enemy;
 import hallway.Hallway;
 import hallway.HallwaysGenerator;
 import player.Player;
@@ -25,9 +26,13 @@ public class World {
     private Random randomGenerator;
 
     private Player player;
-    Coordinate playerPosition;
+    private Coordinate playerPosition;
+
+    private Enemy enemy;
+    private Coordinate enemyPosition;
 
     List<Coordinate> coins;
+
 
     int seed;
 
@@ -62,6 +67,10 @@ public class World {
         //Generate player
         player = new Player(randomGenerator, getAllFloors());
         playerPosition = player.spawnPlayer();
+
+        //Generate Enemy
+        enemy = new Enemy(randomGenerator, getAllFloors());
+        enemyPosition = enemy.spawn();
 
         //Generate coins
         coins = generateCoins();
@@ -107,6 +116,8 @@ public class World {
     public Coordinate getPlayerPosition() {
         return playerPosition;
     }
+
+    public Coordinate getEnemyPosition() { return enemyPosition; }
 
     //return seed used for world generation
     public int getSeed() {

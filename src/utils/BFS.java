@@ -2,6 +2,12 @@ package utils;
 
 import java.util.*;
 
+/**
+ * The BFS class is responsible for performing Breadth-First Search
+ * on a graph built from floor tiles in a 2D world.
+ * It finds the shortest path between a start and end coordinate
+ * — used for enemy movement toward the player.
+ */
 public class BFS<T> {
     private Graph<T> graph;
     List<T> path = new ArrayList<>();
@@ -31,7 +37,7 @@ public class BFS<T> {
 
         while (!queue.isEmpty()) {
             parent = queue.poll();
-            if (parent == end) {
+            if (parent.equals(end)) {
                 buildPath(end);
                 return path;
             }
@@ -39,7 +45,7 @@ public class BFS<T> {
             for(T node : graph.getAdjacent(parent)) {
                 if (visited.contains(node)) { continue; }
                 queue.add(node);
-                visited.add(parent);
+                visited.add(node);
                 edgeTo.put(node, parent);
             }
 

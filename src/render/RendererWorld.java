@@ -30,6 +30,9 @@ public class RendererWorld implements GRender {
     //coordinates of player in world
     Coordinate playerPosition;
 
+    //coordinates of enemy in world
+    Coordinate enemyPosition;
+
     //coordinates of all coins
     List<Coordinate> coins;
 
@@ -56,6 +59,9 @@ public class RendererWorld implements GRender {
 
         worldTiles = new TETile[width][height];//initialise 2d array of tiles
 
+        playerPosition = world.getPlayer();
+        enemyPosition = world.getEnemy();
+
         fillWorldTiles();//add wall and floor tiles to worldTiles
         world.updateState();
     }
@@ -68,6 +74,7 @@ public class RendererWorld implements GRender {
         fillFloor();
         fillCoins();
         fillPlayer();
+        fillEnemy();
     }
 
     //Fills whole worldTiles array with Nothing tiles(it would throw null exception otherwise
@@ -95,11 +102,12 @@ public class RendererWorld implements GRender {
 
     //Fill one tile with player cordinates
     private void fillPlayer() {
-        playerPosition = world.getPlayer();
-        int playerPositonX = playerPosition.x;
-        int playerPositonY = playerPosition.y;
+        worldTiles[playerPosition.x][playerPosition.y] = Tileset.AVATAR;
+    }
 
-        worldTiles[playerPositonX][playerPositonY] = Tileset.AVATAR;
+    //Fill one tile with enemy cordinates
+    private void fillEnemy() {
+        worldTiles[enemyPosition.x][enemyPosition.y] = Tileset.SAND;
     }
 
     private void fillCoins() {

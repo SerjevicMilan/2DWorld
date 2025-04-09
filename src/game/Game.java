@@ -126,6 +126,7 @@ public class Game {
                 world.updatePlayerPosition(c);
             }
         }
+
     }
 
     //change state depending on key pressed in menu
@@ -155,7 +156,7 @@ public class Game {
 
     //if key pressed is q return true
     private boolean isQuitPressed() {
-        return inputHandler.isKeyPressed(KEY_QUIT);
+        return world != null && (inputHandler.isKeyPressed(KEY_QUIT) || world.gameOver());
     }
 
     //Change game state to GAME_OVER and save if game was running

@@ -24,19 +24,6 @@ public class CordinateTests {
         pos2.changeCoordinates(2, 4);
         assertThat(pos1.distanceBettwen(pos2)).isEqualTo(2);
 
-        //test for bad input(negative coordinates)
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
-            pos1.changeCoordinates(-1, -1);
-        });
-
-        assertThat(e).hasMessageThat().contains("Cordinates can't be negative");
-
-        e = assertThrows(IllegalArgumentException.class, () -> {
-            new Coordinate(-1, -1);
-        });
-
-        assertThat(e).hasMessageThat().contains("Cordinates can't be negative");
-
         //test equals
         pos2.changeCoordinates(2, 2);
         assertThat(pos1.equals(pos2)).isTrue();
